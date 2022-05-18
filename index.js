@@ -9,23 +9,18 @@ function solution (input) {
   nums1 = (Array.isArray(nums1) && nums1.length) ? nums1 : []
   nums2 = (Array.isArray(nums2) && nums2.length) ? nums2 : []
 
-  let numbers = [...nums1, ...nums2].map(n => parseFloat(n)).sort((a, b) => a - b)
-  let isEven = numbers.length % 2 === 0
-  let startCut = Math.floor(numbers.length / 2)
-  let endCut = startCut + 1
-  if (isEven) {
-    startCut = Math.floor(numbers.length / 2) - 1
+  if (!nums1.length && !nums2.length) {
+    return 0
   }
 
-  let medianSource = numbers.slice(startCut, endCut)
+  let numbers = new Float64Array([...nums1, ...nums2]).sort()
+  let midpoint = Math.floor(numbers.length / 2)
+  let median = numbers[midpoint]
+  if (numbers.length % 2 === 0) {
+    return (median + numbers[midpoint - 1]) / 2
+  }
 
-  if (medianSource.length === 1) {
-    return medianSource[0]
-  }
-  if (medianSource.length === 2) {
-    return (medianSource[0] + medianSource[1]) / 2
-  }
-  return 0
+  return median
 }
 
 /* eslint-disable no-unused-expressions */
